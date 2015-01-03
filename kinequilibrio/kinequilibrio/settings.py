@@ -8,16 +8,6 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = ()
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kine',
-        'USER': 'kine',
-        'PASSWORD': 'kinequilibrio',
-        'HOST': '',  # Set to empty string for localhost.
-        'PORT': '',  # Set to empty string for default.
-    }
-}
 
 CONN_MAX_AGE = 600  # number of seconds database connections should persist for
 ALLOWED_HOSTS = []
@@ -140,3 +130,9 @@ WAGTAILSEARCH_RESULTS_TEMPLATE = 'kineblog/search_results.html'
 WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'kineblog/includes/search_listing.html'
 
 WAGTAILSEARCH_ES_INDEX = 'kinequilibrio'
+
+try:  # import the local settings
+    from settings_local import *  # noqa
+except ImportError:
+    print('You need to define a settings_local.py')
+    exit()
