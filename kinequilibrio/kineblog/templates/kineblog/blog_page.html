@@ -1,0 +1,29 @@
+{% extends "kineblog/base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% if self.date %}
+    {% block heading %}
+        <div class="page-header">
+            <h2>{{ self.title }}</h2>
+            <h3>{{ self.date|date:"j F Y" }}</h3>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    {% include "kineblog/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+
+    {% include "kineblog/includes/body.html" with body=self.body only %}
+
+    {% with self.tags.all as tags %}
+        {% if tags %}
+            <div class="page-header"><h3>Etiquetas</h3></div>
+            {% for tag in tags %}
+                <a href="{% pageurl self.blog_index %}?tag={{ tag }}"><button class="btn btn-primary" type="button">{{ tag }}</button></a>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% include "kineblog/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

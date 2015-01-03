@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
+.ropeproject
 # C extensions
 *.so
 
@@ -46,9 +46,15 @@ coverage.xml
 
 # Django stuff:
 *.log
+static/*
+media/*
+
+*.db
 
 # Sphinx documentation
 docs/_build/
 
 # PyBuilder
 target/
+
+.idea

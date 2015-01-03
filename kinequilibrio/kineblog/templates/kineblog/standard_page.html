@@ -1,0 +1,11 @@
+{% extends "kineblog/base.html" %}
+
+{% block content %}
+    {% include "kineblog/includes/intro.html" with intro=self.intro only %}
+
+    {% include "kineblog/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+
+    {% include "kineblog/includes/body.html" with body=self.body only %}
+
+    {% include "kineblog/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

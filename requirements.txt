@@ -1,0 +1,9 @@
+Django==1.6.2
+South==1.0.0
+django-compressor==1.4
+django-modelcluster==0.4
+-e git://github.com/torchbox/wagtail.git#egg=wagtail
+django-taggit==0.11.2
+django-libsass==0.2
+psycopg2
+fabric

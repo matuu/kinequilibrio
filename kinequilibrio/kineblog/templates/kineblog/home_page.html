@@ -1,0 +1,15 @@
+{% extends "kineblog/base.html" %}
+{% load kineblog_tags %}
+
+
+{% block content %}
+    {% include "kineblog/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
+
+    {% include "kineblog/includes/body.html" with body=self.body only %}
+
+    {% person_listing_homepage %}
+
+    {% blog_listing_homepage %}
+
+    {% event_listing_homepage %}
+{% endblock %}
