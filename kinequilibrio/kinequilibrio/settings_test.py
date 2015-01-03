@@ -1,6 +1,7 @@
 __author__ = 'm4tuu'
 from kinequilibrio.settings import *
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
@@ -19,4 +20,5 @@ SOUTH_TESTS_MIGRATE = False
 
 # Special folder to contain test media. It gets cleaned up after tests run (not
 # implemented on all tests).
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(PROJECT_DIR, '../../test_media/')

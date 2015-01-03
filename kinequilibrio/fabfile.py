@@ -9,7 +9,7 @@ from fabric.colors import green, red
 from fabric.contrib.console import confirm
 from fabric.contrib.project import rsync_project
 
-env.hosts = ["www.kinequilibrio"]
+env.hosts = ["www.kinequilibrio.com.ar"]
 env.user = 'matuu'
 env.key_filename = '/home/m4tuu/.ssh/id_rsa'
 
@@ -57,7 +57,7 @@ def run_backup():
     date = time.strftime('%Y%m%d%H%M%S')
     fname = '%(host)s-backup-%(date)s.gz' % {'date': date, 'host': host}
     green("Ingrese la contraseña de la clave privada local.")
-    sudo("pg_dump kinequilibrio | gzip > /tmp/%s" % fname, user="postgres")
+    sudo("pg_dump kine | gzip > /tmp/%s" % fname, user="postgres")
     get("/tmp/%s" % fname, os.path.join(backup_dir, fname))
     sudo("rm /tmp/%s" % fname, user="postgres")
 
@@ -109,11 +109,11 @@ def update_remote_db():
     Realiza un backup antes de la operación
     """
     run_backup()
-    local("sudo -u postgres -H pg_dump kinequilibrio > /tmp/dbk.bak")
+    local("sudo -u postgres -H pg_dump kine > /tmp/dbk.bak")
     put(local_path="/tmp/dbk.bak", remote_path="/tmp/dbk.bak")
-    sudo("dropdb kinequilibrio", user="postgres")
-    sudo("createdb kinequilibrio", user="postgres")
-    sudo("psql kinequilibrio < /tmp/dbk.bak", user="postgres")
+    sudo("dropdb kine", user="postgres")
+    sudo("createdb kine", user="postgres")
+    sudo("psql kine < /tmp/dbk.bak", user="postgres")
     sudo("rm /tmp/dbk.bak")
     local("sudo rm /tmp/dbk.bak")
 
