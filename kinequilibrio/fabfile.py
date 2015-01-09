@@ -85,7 +85,7 @@ def deploy(test=True, backup=True):
         green("Actualizando codigo")
         run("git pull")
         green("Actualizando dependencias")
-        run_cmd_env("pip --exists-action b install -r requirements.txt")
+        run_cmd_env("pip --exists-action b install -r ../requirements.txt")
     with cd(proj_dir):
         run_cmd_env("python manage.py syncdb")
         run_cmd_env("python manage.py migrate")
