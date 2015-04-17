@@ -49,7 +49,7 @@ coverage.xml
 *.log
 static/*
 media/*
-settinfs_local.py
+settings_local.py
 *.db
 
 # Sphinx documentation
