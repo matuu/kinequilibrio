@@ -6,7 +6,10 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Ing. Matías Varela">
 
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}
             {% block title_postfix %} | Kinequilibrio{% endblock %}</title>
@@ -15,17 +18,23 @@
 
         {# External stylesheets #}
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+{#        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">#}
+
+        <!-- Custom Fonts -->
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
 
         {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
         {% compress css %}
             {# Vendor stylesheets stored locally #}
             <link rel="stylesheet" href="{% static "kineblog/css/vendor/jquery.bxslider.css" %}" />
+            <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
 
             {# Custom stylesheets #}
             {# SCSS compilation relies on django compressor #}
             <link rel="stylesheet" type="text/x-scss" href="{% static "kineblog/css/main.scss" %}" />
-
 
         {% endcompress %}
 
@@ -59,24 +68,25 @@
         {% block menu %}
             {% get_site_root as site_root %}
             {% top_menu parent=site_root calling_page=self %}
-            asda
         {% endblock %}
 
-        <div class="container theme-showcase">
-{#            <div class="jumbotron">#}
-{#                <h1>Kinequilibrio</h1>#}
-{#                <p>Un blog sobre salud y bienestar corporal.</p>#}
-{#                {% block search_box %}#}
-{#                    {% include "kineblog/includes/search_box.html" only %}#}
-{#                {% endblock %}#}
-{#            </div>#}
-
-            {% block heading %}
-                <div class="page-header">
-                    <h2>{{ self.title }}</h2>
+     <!-- Page Header -->
+    {% block heading %}
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>{{ self.title }}</h1>
+                        <hr class="small">
+                        <span class="subheading">Un blog sobre salud y bienestar corporal.</span>
+                    </div>
                 </div>
-            {% endblock %}
-
+            </div>
+        </div>
+    </header>
+    {% endblock %}
             {% block content %}
 
             {% endblock %}
@@ -90,7 +100,44 @@
                 {% adverts %}
             {% endblock %}
 
+
+        <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+{#                        <li>#}
+{#                            <a href="#">#}
+{#                                <span class="fa-stack fa-lg">#}
+{#                                    <i class="fa fa-circle fa-stack-2x"></i>#}
+{#                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>#}
+{#                                </span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="#">#}
+{#                                <span class="fa-stack fa-lg">#}
+{#                                    <i class="fa fa-circle fa-stack-2x"></i>#}
+{#                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>#}
+{#                                </span>#}
+{#                            </a>#}
+{#                        </li>#}
+                        <li>
+                            <img alt="" src="{% static 'img/logo.png' %}" width="200" />
+{#                            <a href="#">#}
+{#                                <span class="fa-stack fa-lg">#}
+{#                                    <i class="fa fa-circle fa-stack-2x"></i>#}
+{#                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>#}
+{#                                </span>#}
+{#                            </a>#}
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Kinequilibrio 2015</p>
+                </div>
+            </div>
         </div>
+    </footer>
 
         {# External javascript #}
         <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -102,6 +149,8 @@
             {# Custom javascript #}
             {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
             <script src="{% static "kineblog/js/main.js" %}"></script>
+            <!-- Custom Theme JavaScript -->
+            <script src="{% static "js/clean-blog.min.js" %}"></script>
         {% endcompress %}
 
         {% block extra_js %}{% endblock %} {# Override this block in individual templates in order to add javascript on a template by template basis #}

@@ -22,7 +22,6 @@ from wagtail.wagtailsearch import index
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
-from south.signals import post_migrate
 
 from kineblog.utils import export_event
 

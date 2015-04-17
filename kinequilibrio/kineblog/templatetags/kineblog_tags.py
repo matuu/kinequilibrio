@@ -87,7 +87,7 @@ def secondary_menu(context, calling_page=None):
 
 
 # Retrieves all live pages which are children of the calling page
-#for standard index listing
+# for standard index listing
 @register.inclusion_tag(
     'kineblog/tags/standard_index_listing.html',
     takes_context=True
