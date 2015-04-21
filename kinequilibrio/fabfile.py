@@ -114,6 +114,9 @@ def update_remote_db():
     sudo("dropdb kine", user="postgres")
     sudo("createdb kine", user="postgres")
     sudo("psql kine < /tmp/dbk.bak", user="postgres")
+    sudo("psql kine -c \"GRANT ALL ON ALL TABLES IN SCHEMA public to kine;\"", user="postgres")
+    sudo("psql kine -c \"GRANT ALL ON ALL SEQUENCES IN SCHEMA public to kine;\"", user="postgres")
+    sudo("psql kine -c \"GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to kine;\"", user="postgres")
     sudo("rm /tmp/dbk.bak")
     local("sudo rm /tmp/dbk.bak")
 
