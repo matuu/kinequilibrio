@@ -53,7 +53,7 @@ def run_backup():
 
 
 @task
-def deploy(backup=True):
+def deploy(backup=False):
     """
     Deploy to the selected servers, arguments: test, backup
     """
