@@ -39,16 +39,6 @@ def run_cmd_env(command):
 
 
 @task
-@runs_once
-def run_tests():
-    """
-    Corre todos los test.
-    Añadir las aplicaciones a probar
-    """
-    local("python manage.py test --settings=kinequilibrio.settings_test")
-
-
-@task
 def run_backup():
     """
     Realiza un backup de la base de datos y la almacena localmente.
@@ -63,7 +53,7 @@ def run_backup():
 
 
 @task
-def deploy(test=True, backup=True):
+def deploy(backup=True):
     """
     Deploy to the selected servers, arguments: test, backup
     """
@@ -72,11 +62,8 @@ def deploy(test=True, backup=True):
 
     current_branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
     if current_branch != 'master':
-       abort(red("Abortado, no estás en el branch master."))
+        abort(red("Abortado, no estás en el branch master."))
 
-    if test:
-        green("Corriendo tests")
-        run_tests()
     if backup:
         green("Realizando backup de la base de datos y descargando copia.")
         run_backup()
@@ -87,7 +74,6 @@ def deploy(test=True, backup=True):
         green("Actualizando dependencias")
         run_cmd_env("pip --exists-action b install -r ../requirements.txt")
     with cd(proj_dir):
-        run_cmd_env("python manage.py syncdb")
         run_cmd_env("python manage.py migrate")
         sudo("service uwsgi restart")
         sudo("service nginx restart")
