@@ -1,0 +1,35 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="blog-post">
+{% if blog.main_image %}
+    <a href="{% pageurl blog %}">
+        <div class="item-img-wrap">
+            {% image blog.main_image original as tmp_photo %}
+            <img {{ tmp_photo.attrs }} class="img-responsive">
+            <div class="item-img-overlay">
+                <span>
+                    <span class="text-overlay">
+                        {{ blog.main_image.title }}
+                    </span>
+                </span>
+            </div>
+        </div>                       
+    </a><!--work link-->
+{% endif %}
+    <ul class="list-inline post-detail">
+        <li>por <a href="#">{{ blog.owner }}</a></li>
+        <li><i class="fa fa-calendar"></i> {{ blog.date|date:"j F Y" }}</li>
+        <li><i class="fa fa-tag"></i> 
+        {% for tag in blog.get_tags %}
+            <a href="{% pageurl blog.blog_index %}?tag={{ tag }}">{{ tag }}</a>
+            {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </li>
+        <!--li><i class="fa fa-comment"></i> <a href="#">6 Comments</a></li-->
+    </ul>
+    <h2><a href="{% pageurl blog %}">{{ blog.title }}</a></h2>
+    <p class="lead">
+        {{ blog.intro }}
+    </p>
+    <p><a href="{% pageurl blog %}" class="btn btn-theme-dark">Seguir leyendo...</a></p>
+</div><!--blog post-->

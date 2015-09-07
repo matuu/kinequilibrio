@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block breadcrumb %}
+    <li><a href="/">Home</a></li>
+    <li><a href="{% pageurl self.blog_index %}">Blog</a></li>
+    <li>{{ self.title }}</li>
+{% endblock %}
+
+{% block content %}
+    
+    {#% include "kine_blog/includes/carousel.html" with carousel_items=self.carousel_items.all only %#}
+    <h2 class="blog-page">{{ self.title }}</h2>
+    <ul class="list-inline post-detail blog-page">
+        <li>por <a href="#">{{ self.owner }}</a></li>
+        <li><i class="fa fa-calendar"></i> {{ self.date|date:"j F Y" }}</li>
+        </li>
+        <!--li><i class="fa fa-comment"></i> <a href="#">6 Comments</a></li-->
+    </ul>
+    {% if self.main_image %}
+    <div>
+        {% image self.main_image fill-760x400-c50 class="img-responsive img-thumbnail" %}
+    </div>
+    {% endif %}
+    {% if self.intro %}
+        <div class="dropcap lead">
+            {{ self.intro|richtext}}
+        </div>
+    {% endif %}
+
+    {% include "kine_blog/includes/body.html" with body=self.body only %}
+
+    {% with self.tags.all as tags %}
+        {% if tags %}
+            <div><h3>Etiquetas</h3></div>
+            {% for tag in tags %}
+                <a href="{% pageurl self.blog_index %}?tag={{ tag }}"><button class="btn btn-theme-dark" type="button">{{ tag }}</button></a>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% include "kine_blog/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}
+
+
+{% block tags_sidebar %}
+    {% for tag1 in tags %}
+        {% with tag1.tag__name as name %}
+         <li><a href="{% pageurl self.blog_index %}?tag={{ name }}">{{ name }}</a> <i class="fa fa-angle-right"></i></li>
+        {% endwith %}
+    {% endfor %}
+{% endblock %}

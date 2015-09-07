@@ -51,6 +51,7 @@ static/*
 media/*
 settings_local.py
 *.db
+*.sqlite3
 
 # Sphinx documentation
 docs/_build/

@@ -1,0 +1,47 @@
+{% load kine_blog_tags wagtailcore_tags static %}
+{% get_site_root as site_root %}
+
+{# Implementation of bootstrap theme dropdown menu - shows top level links and their children #}
+<!--navigation -->
+    <!-- Static navbar -->
+    <div class="navbar navbar-inverse navbar-static-top yamm sticky" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% pageurl site_root %}"><img src="{% static "img/logo-navbar.png" %}" /></a>
+            </div>
+
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                    {% for menuitem in menuitems %}
+                    <li class="{% if menuitem.show_dropdown %}dropdown{% endif %}{% if calling_page.url == menuitem.url %} active{% endif %}">
+                        {% if menuitem.show_dropdown %}
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ menuitem.title }} <b class="caret"></b></a>
+                            {% top_menu_children parent=menuitem %}
+                        {% else %}
+                            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{% pageurl site_root %}#portfolio">Nuestro lugar</a>
+                    </li>
+                    <li>
+                        <a href="{% pageurl site_root %}#services">Nuestros servicios</a>
+                    </li>
+                    <li>
+                        <a href="{% pageurl site_root %}#contact">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</div>
